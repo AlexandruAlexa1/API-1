@@ -16,19 +16,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		
 		@SuppressWarnings("deprecation")
 		UserBuilder users = User.withDefaultPasswordEncoder();
 		
 		auth.inMemoryAuthentication()
-			.withUser(users.username("aa").password("0000").roles("EMPLOYEE"))
-			.withUser(users.username("alexa").password("0000").roles("EMPLOYEE", "MANAGER"))
-			.withUser(users.username("alexandru").password("0000").roles("EMPLOYEE", "ADMIN"));
+			.withUser(users.username("user1").password("0000").roles("EMPLOYEE"))
+			.withUser(users.username("user2").password("0000").roles("EMPLOYEE", "MANAGER"))
+			.withUser(users.username("user3").password("0000").roles("EMPLOYEE", "ADMIN"));
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/api/customers").hasRole("EMPLOYEE")
 		.antMatchers(HttpMethod.GET, "/api/customers/**").hasRole("EMPLOYEE")

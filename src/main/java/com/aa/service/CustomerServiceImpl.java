@@ -13,34 +13,30 @@ import com.aa.entity.Customer;
 public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
-	private CustomerDAO customerDAO;
+	private CustomerDAO dao;
 
 	@Override
 	@Transactional
 	public List<Customer> findAll() {
-		
-		return customerDAO.findAll();
+		return dao.findAll();
 	}
 
 	@Override
 	@Transactional
-	public Customer findById(int id) {
-		
-		return customerDAO.findById(id);
+	public Customer findById(Integer id) {
+		return dao.findById(id);
 	}
 
 	@Override
 	@Transactional
 	public void save(Customer customer) {
-		
-		customerDAO.save(customer);
+		dao.save(customer);
 	}
 
 	@Override
 	@Transactional
-	public void deleteById(int id) {
-	
-		customerDAO.deleteById(id);
+	public void deleteById(Integer id) {
+		dao.deleteById(id);
 	}
 
 }
