@@ -16,61 +16,55 @@ import com.aa.entity.Customer;
 import com.aa.service.CustomerService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/customers")
 public class CustomerRestController {
 	
 	@Autowired
-	private CustomerService customerService;
+	private CustomerService service;
 	
-	@GetMapping("/customers")
+	@GetMapping
 	public List<Customer> findAll() {
-		
-		return customerService.findAll();
+		return service.findAll();
 	}
 	
-	@GetMapping("/customers/{id}")
-	public Customer findById(@PathVariable int id) {
-		
-		Customer customer = customerService.findById(id);
+	@GetMapping("/{id}")
+	public Customer get(@PathVariable int id) {
+		Customer customer = service.findById(id);
 		
 		if (customer == null) {
-			throw new CustomerNotFoundException("Customer id not found - " + id);
+			throw new CustomerNotFoundException("Could not find any customer with ID: " + id);
 		}
 		
 		return customer;
 	}
 	
-	@PostMapping("/customers")
-	public Customer addCustomer(@RequestBody Customer customer) {
-		
+	@PostMapping
+	public Customer add(@RequestBody Customer customer) {
 		customer.setId(0);
 		
-		customerService.save(customer);
+		service.save(customer);
 		
 		return customer;
 	}
 	
-	@PutMapping("/customers")
-	public Customer updateCustomer(@RequestBody Customer customer) {
-		
-		
-		customerService.save(customer);
+	@PutMapping
+	public Customer update(@RequestBody Customer customer) {
+		service.save(customer);
 		
 		return customer;
 	}
 	
-	@DeleteMapping("/customers/{id}")
-	public String deleteById(@PathVariable int id) {
-		
-		Customer customer = customerService.findById(id);
+	@DeleteMapping("/{id}")
+	public String delete(@PathVariable("id") Integer id) {
+		Customer customer = service.findById(id);
 		
 		if (customer == null ) {
-			throw new CustomerNotFoundException("customer id not found - " + id);
+			throw new CustomerNotFoundException("Could not find any customer with ID: " + id);
 		}
 		
-		customerService.deleteById(id);
+		service.deleteById(id);
 		
-		return "delete customer where id=" + id;
+		return "The Customer with ID: " + id + " was deleted successfuly!";
 	}
 
 }

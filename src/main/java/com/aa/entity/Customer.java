@@ -45,9 +45,7 @@ public class Customer {
 	@Column(name = "phone_number", nullable = false, length = 15)
 	private String phoneNumber;
 
-	public Customer() {
-		
-	}
+	public Customer() {}
 
 	public Integer getId() {
 		return id;
