@@ -40,8 +40,6 @@ public class CustomerRestController {
 	
 	@PostMapping
 	public Customer add(@RequestBody Customer customer) {
-		customer.setId(0);
-		
 		service.save(customer);
 		
 		return customer;
